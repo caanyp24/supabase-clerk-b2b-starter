@@ -1,10 +1,18 @@
-import { Button } from '@/components/ui/button';
+import GetTasks from '@/components/get-tasks';
+import { useSupabase } from '@/supabase/supabase-server';
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await useSupabase();
+
+  const { data, error } = await supabase.from('tasks').select();
+
   return (
-    <main>
-      <h1 className="text-3xl">Hallo Welt</h1>
-      <Button>Click me</Button>
-    </main>
+    <div>
+      <h1>Fetch on the Server</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+
+      <h1>Fetch on the Client</h1>
+      <GetTasks />
+    </div>
   );
 }
