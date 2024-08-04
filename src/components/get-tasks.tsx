@@ -25,7 +25,6 @@ export default function GetTasks() {
 
   return (
     <div>
-      <h1>Tasks (Client-side)</h1>
       <pre>{JSON.stringify(tasks, null, 2)}</pre>
     </div>
   );
