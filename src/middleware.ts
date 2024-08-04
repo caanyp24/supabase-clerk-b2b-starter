@@ -21,6 +21,14 @@ export default clerkMiddleware((auth, request) => {
       return NextResponse.redirect(new URL('/onboarding', request.url));
     }
   }
+
+  // Prevent users who have completed onboarding from accessing the onboarding page
+  if (auth().userId && onboardingComplete && url.pathname === '/onboarding') {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
+  // Proceed with the request if all conditions are met
+  return NextResponse.next();
 });
 
 export const config = {

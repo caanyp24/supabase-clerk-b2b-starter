@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { OnboardingForm } from './_components/onboarding-form';
 
 export default function OnboardingPage() {
   return (
@@ -20,12 +21,8 @@ export default function OnboardingPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-          <p className="text-sm font-medium">Company Name</p>
-          <Input />
+          <OnboardingForm />
         </CardContent>
-        <CardFooter className="flex justify-end">
-          <Button>Complete</Button>
-        </CardFooter>
       </Card>
     </div>
   );
