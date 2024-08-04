@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useSession, useUser } from '@clerk/nextjs';
-
-import { Button } from '@/components/ui/button';
+import GetTasks from '@/components/get-tasks';
+import { useSupabase } from '@/supabase/supabase-server';
 
 export default async function Home() {
+  const supabase = await useSupabase();
+
+  const { data, error } = await supabase.from('tasks').select();
   return (
     <div>
-      <h1>Tasks</h1>
+      <h1>Fetch on the Server</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+
+      <h1>Fetch on the Client</h1>
+      <GetTasks />
     </div>
   );
 }

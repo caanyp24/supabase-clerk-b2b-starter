@@ -17,7 +17,7 @@ export default function AuthLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="text-center">{children}</div>
+        <div className="grid min-h-screen place-items-center">{children}</div>
       </body>
     </html>
   );
