@@ -37,6 +37,7 @@ export default function CreateTask() {
       toast({
         title: 'Success',
       });
+      form.reset();
     } else {
       toast({
         title: 'Error:',

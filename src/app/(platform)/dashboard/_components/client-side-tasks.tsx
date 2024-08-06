@@ -25,8 +25,11 @@ export default function ClientSideTasks() {
   }
 
   return (
-    <div className="space-y-4">
-      <Button onClick={fetchTasks}>Fetch Tasks</Button>
+    <div className="space-y-8">
+      <div className="flex items-center justify-center gap-6">
+        <p className="text-2xl text-center">Fetch on the Client</p>
+        <Button onClick={fetchTasks}>Fetch Tasks</Button>
+      </div>
       {loading ? (
         <div>Loading...</div>
       ) : (
