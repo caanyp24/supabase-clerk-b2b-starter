@@ -1,7 +1,8 @@
-import type { Metadata } from 'next';
 import '../globals.css';
+import type { Metadata } from 'next';
 import { auth } from '@clerk/nextjs/server';
 import { OrganizationList } from '@clerk/nextjs';
+import Navbar from './_components/navbar';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +19,12 @@ export default function PlatformLayout({
 
   // If the user has an active organization, render the children
   if (orgId) {
-    return <section>{children}</section>;
+    return (
+      <section>
+        <Navbar />
+        <div className="w-3/4 mx-auto">{children}</div>
+      </section>
+    );
   }
 
   // If the user does not have an active organization, render the organization selection page

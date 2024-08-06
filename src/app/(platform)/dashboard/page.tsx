@@ -1,5 +1,4 @@
 import { createSupabaseClient } from '@/supabase/supabase-server';
-import { UserButton } from '@clerk/nextjs';
 import CreateTask from './_components/create-task';
 import TaskItem from './_components/task-item';
 import ClientSideTasks from './_components/client-side-tasks';
@@ -12,8 +11,7 @@ export default async function Home() {
     .order('id', { ascending: false });
 
   return (
-    <div className="w-3/4 mx-auto space-y-28 mt-8">
-      <UserButton />
+    <div className="space-y-28 mt-24">
       <CreateTask />
       <div className="grid grid-cols-2 gap-8">
         <div className="space-y-10">
