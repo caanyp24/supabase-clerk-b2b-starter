@@ -6,7 +6,10 @@ import ClientSideTasks from './_components/client-side-tasks';
 
 export default async function Home() {
   const supabase = await createSupabaseClient();
-  const { data, error } = await supabase.from('tasks').select();
+  const { data, error } = await supabase
+    .from('tasks')
+    .select()
+    .order('id', { ascending: false });
 
   return (
     <div className="w-3/4 mx-auto space-y-28 mt-8">

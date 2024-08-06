@@ -25,13 +25,13 @@ export default function CreateTask() {
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
     defaultValues: {
+      id: 0,
       task: '',
     },
   });
 
   const onSubmit = async (data: z.infer<typeof TaskSchema>) => {
     const res = await createTask(data);
-
     if (res?.success) {
       router.refresh();
       toast({
@@ -55,7 +55,7 @@ export default function CreateTask() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex items-center justify-center gap-4 w-full"
+          className="flex items-start justify-center gap-4 w-full"
         >
           <FormField
             control={form.control}
@@ -63,7 +63,11 @@ export default function CreateTask() {
             render={({ field }) => (
               <FormItem className="w-full max-w-md">
                 <FormControl>
-                  <Input {...field} className="w-full" />
+                  <Input
+                    {...field}
+                    placeholder="create todays task"
+                    className="w-full"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
