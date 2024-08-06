@@ -1,7 +1,9 @@
+'use server';
+
 import { auth } from '@clerk/nextjs/server';
 import { createClient } from '@supabase/supabase-js';
 
-export async function useSupabase() {
+export async function createSupabaseClient() {
   const { getToken } = auth();
 
   return createClient(

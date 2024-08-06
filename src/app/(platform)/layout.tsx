@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import '../globals.css';
+import { auth } from '@clerk/nextjs/server';
+import { OrganizationList } from '@clerk/nextjs';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,5 +13,18 @@ export default function PlatformLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  // Get the organization ID from the session
+  const { orgId } = auth();
+
+  // If the user has an active organization, render the children
+  if (orgId) {
+    return <section>{children}</section>;
+  }
+
+  // If the user does not have an active organization, render the organization selection page
+  return (
+    <section className="grid min-h-screen place-items-center">
+      <OrganizationList hidePersonal={true} />
+    </section>
+  );
 }

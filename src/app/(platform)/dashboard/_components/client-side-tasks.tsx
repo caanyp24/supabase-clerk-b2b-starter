@@ -2,8 +2,9 @@
 
 import { useSupabase } from '@/supabase/supabase-client';
 import { useEffect, useState } from 'react';
+import TaskItem from './task-item';
 
-export default function GetTasks() {
+export default function ClientSideTasks() {
   const [tasks, setTasks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const supabase = useSupabase();
@@ -23,9 +24,5 @@ export default function GetTasks() {
 
   if (loading) return <div>Loading...</div>;
 
-  return (
-    <div>
-      <pre>{JSON.stringify(tasks, null, 2)}</pre>
-    </div>
-  );
+  return <TaskItem tasks={tasks} />;
 }
