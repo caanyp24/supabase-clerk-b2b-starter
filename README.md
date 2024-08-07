@@ -89,3 +89,42 @@ To find the JWT secret key:
 2. Under the **JWT Settings** section, save the value in the **JWT Secret** field somewhere secure. This value will be used in the next step.
 
 ## 5. Create a Supabase JWT template
+
+Clerk's JWT templates allow you to generate a new valid Supabase authentication token for each signed in user. These tokens allow authenticated users to access your data with Supabase's API.
+
+To create a JWT template for Supabase:
+
+1. Navigate to the Clerk Dashboard.
+2. In the navigation sidebar, select **JWT Templates**.
+3. Select the **New template** button, then select **Supabase** from the list of options.
+4. Configure your template:
+
+- The value of the **Name** field will be required, name it **supabase**.
+- Under **Signing key**, add the value of your Supabase **JWT secret key** from the previous step.
+- Add the org_id to the token **claims**
+
+```
+{
+	"aud": "authenticated",
+	"role": "authenticated",
+	"email": "{{user.primary_email_address}}",
+	"org_id": "{{org.id}}",
+	"app_metadata": {},
+	"user_metadata": {}
+}
+```
+
+- You can leave all other fields at their default settings.
+- Select **Save** from the notification bubble to complete setup.
+
+## 6. Add Custom Session token
+
+Customize your session token and add the public metadata. These are needed to check in the middleware whether the user has completed onboarding
+
+In the Clerk Sidebar, click **Session** and then click edit for **Customize session token**. Insert the public metadata for the session
+
+```
+{
+	"metadata": "{{user.public_metadata}}"
+}
+```
