@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js 14 Starter Boilerplate with Clerk and Supabase
 
-## Getting Started
+This is a simple nextjs 14 starter boilerplate with Clerk as an authentication provider to manage users and organizations and Supabase with a Postgres database to store data assigned to an organization and perform CRUD operations. For this we use the jwt token which contains our org_id with which we can then check RLS settings for this table so that the user can only see, insert, update and delete data within their organization.
 
-First, run the development server:
+#### Tech Stack:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Nextjs 14
+- Clerk
+- Supabase
+- Shadcn
+
+In diesen einfachen Schritte bekommt ihr den Boilerplate zum laufen.
+
+## 1. Create a SQL query that check the organization ID
+
+Create a function named requesting_org_id() that will parse the Clerk organization ID from the authentication token. This function will be used to set the default value of org_id in a table and in the RLS policies to ensure the user can only access their data.
+
+In the sidebar of your Supabase dashboard, navigate to SQL Editor, then select New query. Paste the following into the editor:
+
+```sql
+CREATE OR REPLACE FUNCTION requesting_org_id()
+RETURNS TEXT AS $$
+    SELECT NULLIF(
+        current_setting('request.jwt.claims', true)::json->>'org_id',
+        ''
+    )::text;
+$$ LANGUAGE SQL STABLE;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can check the created function in Databases -> Functions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 2. Create a table and enable RLS on it
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To create the tasks table and enable RLS on it, run the following two queries:
+-- Create a 'tasks' table
+create table tasks(
+id serial primary key,
+name text not null,
+user_id text not null default requesting_user_id()
+);
 
-## Learn More
+-- Enable RLS on the table
+alter table `tasks` enable row level security;
 
-To learn more about Next.js, take a look at the following resources:
+## 3. Create ID-based RLS policies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create RLS policies that permit users to read and insert content associated with their organization IDs only.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In the sidebar, navigate to SQL Editor. Run the following queries to add policies for all statements issued on tasks:
