@@ -3,6 +3,8 @@
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import { OnboardingSchema } from '@/validators/onboarding';
 import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 // Function to complete the onboarding process
 export const completeOnboarding = async (
@@ -29,6 +31,8 @@ export const completeOnboarding = async (
         onboardingComplete: true,
       },
     });
+
+    revalidatePath('/dashboard');
 
     // Successful response
     return { success: true };

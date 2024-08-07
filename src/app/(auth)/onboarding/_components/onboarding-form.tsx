@@ -19,8 +19,11 @@ import { OnboardingSchema } from '@/validators/onboarding';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { completeOnboarding } from '../_actions';
+import { useTransition } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export function OnboardingForm() {
+  const [isPending, startTransition] = useTransition();
   const { user } = useUser();
   const router = useRouter();
 
@@ -32,24 +35,26 @@ export function OnboardingForm() {
   });
 
   const onSubmit = async (data: z.infer<typeof OnboardingSchema>) => {
-    const res = await completeOnboarding(data);
+    startTransition(async () => {
+      const res = await completeOnboarding(data);
 
-    if (res?.success) {
-      await user?.reload();
-      toast({
-        title: 'Success',
-      });
-      router.push('/dashboard');
-    } else {
-      toast({
-        title: 'Error:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            {res?.error}
-          </pre>
-        ),
-      });
-    }
+      if (res?.success) {
+        await user?.reload();
+        router.push('/dashboard');
+        toast({
+          title: 'Success',
+        });
+      } else {
+        toast({
+          title: 'Error:',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              {res?.error}
+            </pre>
+          ),
+        });
+      }
+    });
   };
 
   return (
@@ -69,7 +74,9 @@ export function OnboardingForm() {
           )}
         />
         <div className="flex justify-end pt-4">
-          <Button type="submit">Submit</Button>
+          <Button disabled={isPending} className="flex gap-2" type="submit">
+            {isPending && <Loader2 className="animate-spin size-5" />}Submit
+          </Button>
         </div>
       </form>
     </Form>

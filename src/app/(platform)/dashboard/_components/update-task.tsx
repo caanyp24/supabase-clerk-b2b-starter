@@ -22,14 +22,13 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Edit3 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Edit3, Loader2 } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { updateTask } from '../_actions';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 export default function UpdateTask({ task }: any) {
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TaskSchema>>({
@@ -41,23 +40,24 @@ export default function UpdateTask({ task }: any) {
   });
 
   const onSubmit = async (data: z.infer<typeof TaskSchema>) => {
-    const res = await updateTask(data);
-    if (res?.success) {
-      router.refresh();
-      setOpen(false);
-      toast({
-        title: 'Success',
-      });
-    } else {
-      toast({
-        title: 'Error:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            {res?.error}
-          </pre>
-        ),
-      });
-    }
+    startTransition(async () => {
+      const res = await updateTask(data);
+      if (res?.success) {
+        setOpen(false);
+        toast({
+          title: 'Success',
+        });
+      } else {
+        toast({
+          title: 'Error:',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              {res?.error}
+            </pre>
+          ),
+        });
+      }
+    });
   };
 
   return (
@@ -87,8 +87,15 @@ export default function UpdateTask({ task }: any) {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-end space-x-2">
-                <Button type="submit">Update</Button>
+              <div className="flex justify-end gap-2">
+                <Button
+                  disabled={isPending}
+                  className="flex gap-2"
+                  type="submit"
+                >
+                  {isPending && <Loader2 className="animate-spin size-5" />}
+                  Update
+                </Button>
                 <Button
                   type="button"
                   onClick={() => {

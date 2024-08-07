@@ -7,21 +7,20 @@ import { Input } from '@/components/ui/input';
 
 import { TaskSchema } from '@/validators/task';
 import { createTask } from '@/app/(platform)/dashboard/_actions';
-import { useRouter } from 'next/navigation';
 import { toast } from '@/components/ui/use-toast';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
+import { useTransition } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export default function CreateTask() {
-  const router = useRouter();
-
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
     defaultValues: {
@@ -31,23 +30,24 @@ export default function CreateTask() {
   });
 
   const onSubmit = async (data: z.infer<typeof TaskSchema>) => {
-    const res = await createTask(data);
-    if (res?.success) {
-      router.refresh();
-      toast({
-        title: 'Success',
-      });
-      form.reset();
-    } else {
-      toast({
-        title: 'Error:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            {res?.error}
-          </pre>
-        ),
-      });
-    }
+    startTransition(async () => {
+      const res = await createTask(data);
+      if (res?.success) {
+        toast({
+          title: 'Success',
+        });
+        form.reset();
+      } else {
+        toast({
+          title: 'Error:',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              {res?.error}
+            </pre>
+          ),
+        });
+      }
+    });
   };
 
   return (
@@ -74,7 +74,9 @@ export default function CreateTask() {
               </FormItem>
             )}
           />
-          <Button type="submit">Add Task</Button>
+          <Button disabled={isPending} className="flex gap-2" type="submit">
+            {isPending && <Loader2 className="animate-spin size-5" />}Add Task
+          </Button>
         </form>
       </Form>
     </div>

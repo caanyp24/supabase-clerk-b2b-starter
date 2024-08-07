@@ -2,6 +2,7 @@
 
 import { createSupabaseClient } from '@/supabase/supabase-server';
 import { TaskSchema } from '@/validators/task';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 // Function to create a Task
@@ -22,7 +23,7 @@ export const createTask = async (data: z.infer<typeof TaskSchema>) => {
         error: `Failed to create task: ${error.message}`,
       };
     }
-
+    revalidatePath('/dashboard');
     return { success: true };
   } catch (error) {
     console.error('Failed to create task:', error);
@@ -50,7 +51,7 @@ export const updateTask = async (data: z.infer<typeof TaskSchema>) => {
         error: `Failed to create task: ${error.message}`,
       };
     }
-
+    revalidatePath('/dashboard');
     return { success: true };
   } catch (error) {
     console.error('Failed to create task:', error);
@@ -73,7 +74,7 @@ export const deleteTask = async (task: any) => {
         error: `Failed to delete task: ${error.message}`,
       };
     }
-
+    revalidatePath('/dashboard');
     return { success: true };
   } catch (error) {
     console.error('Failed to delete task:', error);

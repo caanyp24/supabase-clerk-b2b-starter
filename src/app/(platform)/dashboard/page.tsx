@@ -18,7 +18,6 @@ export default async function Home() {
           <p className="text-2xl text-center">Fetch on the Server</p>
           <TaskItem tasks={data} />
         </div>
-
         <ClientSideTasks />
       </div>
     </div>

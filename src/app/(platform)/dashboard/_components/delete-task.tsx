@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Trash } from 'lucide-react';
+import { Loader2, Trash } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,27 +15,28 @@ import {
 } from '@/components/ui/alert-dialog';
 import { deleteTask } from '../_actions';
 import { toast } from '@/components/ui/use-toast';
-import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
 export default function DeleteTask({ task }: any) {
-  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const onSubmit = async () => {
-    const res = await deleteTask(task);
-    if (res?.success) {
-      router.refresh();
-      toast({
-        title: 'Success',
-      });
-    } else {
-      toast({
-        title: 'Error:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            {res?.error}
-          </pre>
-        ),
-      });
-    }
+    startTransition(async () => {
+      const res = await deleteTask(task);
+      if (res?.success) {
+        toast({
+          title: 'Success',
+        });
+      } else {
+        toast({
+          title: 'Error:',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              {res?.error}
+            </pre>
+          ),
+        });
+      }
+    });
   };
 
   return (
@@ -56,8 +57,8 @@ export default function DeleteTask({ task }: any) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => onSubmit()}>
-              Continue
+            <AlertDialogAction disabled={isPending} onClick={() => onSubmit()}>
+              {isPending && <Loader2 className="animate-spin size-5" />}Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
