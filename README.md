@@ -9,13 +9,13 @@ This is a simple nextjs 14 starter boilerplate with Clerk as an authentication p
 - Supabase
 - Shadcn
 
-In diesen einfachen Schritte bekommt ihr den Boilerplate zum laufen.
+In these simple steps you can get the boilerplate up and running.
 
 ## 1. Create a SQL query that check the organization ID
 
-Create a function named requesting_org_id() that will parse the Clerk organization ID from the authentication token. This function will be used to set the default value of org_id in a table and in the RLS policies to ensure the user can only access their data.
+Create a function named **requesting_org_id()** that will parse the Clerk organization ID from the authentication token. This function will be used to set the default value of **org_id** in a table and in the RLS policies to ensure the user can only access data within their organization.
 
-In the sidebar of your Supabase dashboard, navigate to SQL Editor, then select New query. Paste the following into the editor:
+In the sidebar of your [Supabase dashboard](https://supabase.com/dashboard/projects), navigate to **SQL Editor**, then select **New query**. Paste the following into the editor:
 
 ```sql
 CREATE OR REPLACE FUNCTION requesting_org_id()
@@ -31,16 +31,21 @@ You can check the created function in Databases -> Functions
 
 ## 2. Create a table and enable RLS on it
 
-To create the tasks table and enable RLS on it, run the following two queries:
+Next, you'll create a **tasks** table and enable RLS on that table. The **tasks** table will also contain a **org_id** column that will use the **requesting_org_id()** function you just created as it's default value. This column will be used in the RLS policies to only return or modify records scoped to the user's account.
+
+To create the **tasks** table and enable RLS on it, run the following two queries:
+
+```sql
 -- Create a 'tasks' table
 create table tasks(
-id serial primary key,
-name text not null,
-user_id text not null default requesting_user_id()
+  id serial primary key,
+  name text not null,
+  org_id text not null default requesting_org_id()
 );
 
 -- Enable RLS on the table
 alter table `tasks` enable row level security;
+```
 
 ## 3. Create ID-based RLS policies
 
