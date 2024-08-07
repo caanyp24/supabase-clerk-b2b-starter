@@ -27,7 +27,7 @@ RETURNS TEXT AS $$
 $$ LANGUAGE SQL STABLE;
 ```
 
-You can check the created function in Databases -> Functions
+You can check the created function in Databases > Functions
 
 ## 2. Create a table and enable RLS on it
 
@@ -52,3 +52,40 @@ alter table `tasks` enable row level security;
 Create RLS policies that permit users to read and insert content associated with their organization IDs only.
 
 In the sidebar, navigate to SQL Editor. Run the following queries to add policies for all statements issued on tasks:
+
+```sql
+-- SELECT
+create policy "select_org_tasks" on public.tasks
+    for select
+    to authenticated
+    using (requesting_org_id() = org_id);
+
+-- INSERT
+create policy "insert_org_tasks" on public.tasks
+    for insert
+    to authenticated
+    with check (requesting_org_id() = org_id);
+
+-- UPDATE
+create policy "update_org_tasks" on public.tasks
+    for update
+    to authenticated
+    using (requesting_org_id() = org_id);
+
+-- DELETE
+create policy "delete_org_tasks" on public.tasks
+    for delete
+    to authenticated
+    using (requesting_org_id() = org_id);
+```
+
+## 4. Get your Supabase JWT secret key
+
+To give users access to your data, Supabase's API requires an authentication token. Your Clerk project can generate these authentication tokens, but it needs your Supabase project's JWT secret key first.
+
+To find the JWT secret key:
+
+1. In the sidebar, navigate to Project **Settings > API**.
+2. Under the **JWT Settings** section, save the value in the **JWT Secret** field somewhere secure. This value will be used in the next step.
+
+## 5. Create a Supabase JWT template
