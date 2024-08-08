@@ -12,6 +12,11 @@ export default clerkMiddleware((auth, request) => {
     return NextResponse.next();
   }
 
+  // redirect the user to sign-in if not logged in and in protected page
+  if (!auth().userId && !isPublicRoute(request)) {
+    return auth().redirectToSignIn();
+  }
+
   // redirect unauthenticated users to the sign-in route
   auth().protect();
 

@@ -12,10 +12,7 @@ export const createTask = async (data: z.infer<typeof TaskSchema>) => {
 
   try {
     // Insert the task into the 'tasks' table
-    const { error } = await supabase
-      .from('tasks')
-      .insert({ name: task })
-      .select();
+    const { error } = await supabase.from('tasks').insert({ name: task });
 
     if (error) {
       return {

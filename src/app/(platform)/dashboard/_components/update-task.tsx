@@ -46,12 +46,17 @@ export default function UpdateTask({ task }: any) {
         setOpen(false);
         toast({
           title: 'Success',
+          description: (
+            <pre className="mt-2 w-[340px] text-white rounded-md bg-slate-950 p-4">
+              Task updated!
+            </pre>
+          ),
         });
       } else {
         toast({
           title: 'Error:',
           description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <pre className="mt-2 w-[340px] text-white rounded-md bg-slate-950 p-4">
               {res?.error}
             </pre>
           ),

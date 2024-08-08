@@ -16,7 +16,7 @@ export default async function Home() {
       <div className="grid grid-cols-2 gap-8">
         <div className="space-y-10">
           <p className="text-2xl text-center">Fetch on the Server</p>
-          <TaskItem tasks={data} />
+          {!error ? <TaskItem tasks={data} /> : <p>{error?.message}</p>}
         </div>
         <ClientSideTasks />
       </div>
