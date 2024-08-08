@@ -71,7 +71,7 @@ export default function CreateTask() {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="create todays task"
+                    placeholder="create todays tasks..."
                     className="w-full"
                   />
                 </FormControl>
