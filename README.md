@@ -1,6 +1,19 @@
-# Next.js 14 Starter with Clerk and Supabase
+# Next.js 14 Starter: Integrating Clerk Authentication and Supabase Database
 
-This is a simple nextjs 14 starter with Clerk as an authentication provider to manage users and organizations and Supabase with a Postgres database to store data assigned to an organization and perform CRUD operations. For this we use the jwt token which contains our org_id with which we can then check RLS settings for this table so that the user can only see, insert, update and delete data within their organization.
+This project offers a robust foundation for building modern web applications using Next.js 14. It seamlessly integrates two powerful services:
+
+1. Clerk: A comprehensive authentication and user management solution that handles individual users and organization-level access.
+2. Supabase: A flexible backend-as-a-service platform, providing a PostgreSQL database for efficient data storage and management.
+3. Custom Organization Onboarding: A streamlined process for setting up new organizations during user sign-up.
+
+Key Features:
+
+- Secure Authentication: Leverages Clerk's advanced authentication system for user and organization management.
+- Organization-Scoped Data: Utilizes Clerk's JWT tokens, which include the org_id, to enforce data access controls.
+- Row-Level Security (RLS): Implements Supabase's RLS to ensure users can only perform CRUD operations on data within their organization.
+- Full CRUD Functionality: Supports Create, Read, Update, and Delete operations on organization-specific data.
+
+This starter kit provides a secure and scalable architecture for building applications that require organization-level data management and user authentication.
 
 #### Tech Stack:
 

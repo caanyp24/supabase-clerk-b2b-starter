@@ -20,9 +20,9 @@ export default function PlatformLayout({
   // If the user has an active organization, render the children
   if (orgId) {
     return (
-      <section>
+      <section className="space-y-36">
         <Navbar />
-        <div className="w-3/4 mx-auto">{children}</div>
+        <div>{children}</div>
       </section>
     );
   }

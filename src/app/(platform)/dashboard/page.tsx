@@ -11,7 +11,7 @@ export default async function Home() {
     .order('id', { ascending: false });
 
   return (
-    <div className="space-y-28 mt-24">
+    <div className="space-y-28">
       <CreateTask />
       <div className="grid grid-cols-2 gap-8">
         <div className="space-y-10">

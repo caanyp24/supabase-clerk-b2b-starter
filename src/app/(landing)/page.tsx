@@ -4,9 +4,12 @@ import Link from 'next/link';
 
 export default async function Home() {
   return (
-    <div className="p-48 space-y-12">
-      <h1 className="text-6xl font-bold text-center">Landing Page</h1>
-
+    <div className="space-y-8 text-center">
+      <h1 className="text-6xl font-bold">Nextjs-Supabase-Clerk Starter</h1>
+      <p>
+        A streamlined starter kit featuring organization-based row-level
+        security (RLS) and a simple onboarding system.
+      </p>
       <div className="flex gap-4 items-center justify-center">
         <SignedOut>
           <Button asChild>

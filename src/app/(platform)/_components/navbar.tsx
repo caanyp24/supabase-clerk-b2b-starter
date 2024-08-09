@@ -1,14 +1,22 @@
-import { UserButton } from '@clerk/nextjs';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 import { ModeToggle } from './mode-toggle';
+import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <div>
-      <div className="px-6 py-4 border-b shadow-sm">
-        <div className="w-3/4 mx-auto flex gap-6 justify-end items-center">
-          <ModeToggle />
+    <div className="px-6 py-4 flex items-center justify-between">
+      <div>
+        <Link href={'/'}>
+          <p className="text-xl font-extrabold tracking-tighter">
+            SupabaseClerk
+          </p>
+        </Link>
+      </div>
+      <div className="flex gap-6 justify-end items-center">
+        <ModeToggle />
+        <SignedIn>
           <UserButton />
-        </div>
+        </SignedIn>
       </div>
     </div>
   );

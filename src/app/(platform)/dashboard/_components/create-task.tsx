@@ -57,7 +57,7 @@ export default function CreateTask() {
 
   return (
     <div className="space-y-8 flex flex-col items-center">
-      <p className="text-5xl font-bold text-center">Create Task</p>
+      <p className="text-6xl font-bold text-center">Create Task</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
