@@ -1,6 +1,6 @@
-# Next.js 14 Starter Boilerplate with Clerk and Supabase
+# Next.js 14 Starter with Clerk and Supabase
 
-This is a simple nextjs 14 starter boilerplate with Clerk as an authentication provider to manage users and organizations and Supabase with a Postgres database to store data assigned to an organization and perform CRUD operations. For this we use the jwt token which contains our org_id with which we can then check RLS settings for this table so that the user can only see, insert, update and delete data within their organization.
+This is a simple nextjs 14 starter with Clerk as an authentication provider to manage users and organizations and Supabase with a Postgres database to store data assigned to an organization and perform CRUD operations. For this we use the jwt token which contains our org_id with which we can then check RLS settings for this table so that the user can only see, insert, update and delete data within their organization.
 
 #### Tech Stack:
 
