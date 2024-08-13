@@ -1,4 +1,8 @@
-# Next.js 14 Starter: Integrating Clerk Authentication and Supabase Database
+
+
+https://github.com/user-attachments/assets/31ed5398-9ffa-4fd7-9d78-b97f004e1dca
+
+ # Next.js 14 Starter: Integrating Clerk Authentication and Supabase Database
 
 This project offers a robust foundation for building modern web applications using Next.js 14. It seamlessly integrates two powerful services:
 
