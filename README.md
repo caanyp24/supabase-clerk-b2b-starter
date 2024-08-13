@@ -2,13 +2,15 @@
 
 This project offers a robust foundation for building modern web applications using Next.js 14. It seamlessly integrates two powerful services:
 
+
 https://github.com/user-attachments/assets/31c87e48-0b13-48c8-93ee-fb4a550be354
 
-- Secure Authentication: Leverages Clerk's advanced authentication system for user and organization management.
-- Organization-Scoped Data: Utilizes Clerk's JWT tokens, which include the org_id, to enforce data access controls.
-- Row-Level Security (RLS): Implements Supabase's RLS to ensure users can only perform CRUD operations on data within their organization.
-- Full CRUD Functionality: Supports Create, Read, Update, and Delete operations on organization-specific data.
-- Custom Organization Onboarding: A streamlined process for setting up new organizations during user sign-up.
+
+1. Secure Authentication: Leverages Clerk's advanced authentication system for user and organization management.
+2. Organization-Scoped Data: Utilizes Clerk's JWT tokens, which include the org_id, to enforce data access controls.
+3. Row-Level Security (RLS): Implements Supabase's RLS to ensure users can only perform CRUD operations on data within their organization.
+4. Full CRUD Functionality: Supports Create, Read, Update, and Delete operations on organization-specific data.
+5. Custom Organization Onboarding: A streamlined process for setting up new organizations during user sign-up.
 
 #### Tech Stack:
 
