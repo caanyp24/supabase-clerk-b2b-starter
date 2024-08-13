@@ -13,6 +13,7 @@ https://github.com/user-attachments/assets/31c87e48-0b13-48c8-93ee-fb4a550be354
 5. Custom Organization Onboarding: A streamlined process for setting up new organizations during user sign-up.
 
 #### Tech Stack:
+![next-js-logo-7929BCD36F-seeklogo com](https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced)
 
 - Nextjs 14
 - Clerk
