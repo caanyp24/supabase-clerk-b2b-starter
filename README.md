@@ -15,8 +15,8 @@ https://github.com/user-attachments/assets/31c87e48-0b13-48c8-93ee-fb4a550be354
 #### Tech Stack:
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" />
-  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" /> 
+  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" style="margin-right: 10px;"/>
+  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" style="margin-right: 10px;"/> 
   <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" />
 </p>
 
