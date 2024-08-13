@@ -23,8 +23,6 @@ In these simple steps you can get the boilerplate up and running.
 
 Create a function named **requesting_org_id()** that will parse the Clerk organization ID from the authentication token. This function will be used to set the default value of **org_id** in a table and in the RLS policies to ensure the user can only access data within their organization.
 
-In the sidebar of your [Supabase dashboard](https://supabase.com/dashboard/projects), navigate to **SQL Editor**, then select **New query**. Paste the following into the editor:
-
 ```sql
 CREATE OR REPLACE FUNCTION requesting_org_id()
 RETURNS TEXT AS $$
@@ -34,8 +32,6 @@ RETURNS TEXT AS $$
     )::text;
 $$ LANGUAGE SQL STABLE;
 ```
-
-You can check the created function in Databases > Functions
 
 ## 2. Create a table and enable RLS on it
 
@@ -58,8 +54,6 @@ alter table `tasks` enable row level security;
 ## 3. Create ID-based RLS policies
 
 Create RLS policies that permit users to read and insert content associated with their organization IDs only.
-
-In the sidebar, navigate to SQL Editor. Run the following queries to add policies for all statements issued on tasks:
 
 ```sql
 -- SELECT
@@ -88,10 +82,6 @@ create policy "delete_org_tasks" on public.tasks
 ```
 
 ## 4. Get your Supabase JWT secret key
-
-To give users access to your data, Supabase's API requires an authentication token. Your Clerk project can generate these authentication tokens, but it needs your Supabase project's JWT secret key first.
-
-To find the JWT secret key:
 
 1. In the sidebar, navigate to Project **Settings > API**.
 2. Under the **JWT Settings** section, save the value in the **JWT Secret** field somewhere secure. This value will be used in the next step.
@@ -122,7 +112,6 @@ To create a JWT template for Supabase:
 }
 ```
 
-- You can leave all other fields at their default settings.
 - Select **Save** from the notification bubble to complete setup.
 
 ## 6. Add Custom Session token
