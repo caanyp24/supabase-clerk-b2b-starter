@@ -14,11 +14,11 @@ https://github.com/user-attachments/assets/31c87e48-0b13-48c8-93ee-fb4a550be354
 
 #### Tech Stack:
 
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" style="margin-right: 10px;"/>
-  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" style="margin-right: 10px;"/> 
-  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" width="100" />
-</p>
+<div style="display: flex; justify-content: space-around; align-items: center; gap: 20px;">
+  <img src="https://github.com/user-attachments/assets/a22d8a8d-f995-4716-8ce7-b68c0363aced" alt="next-js-logo" width="100"/>
+  <img src="path_to_second_image.png" alt="second-image" width="200"/>
+  <img src="path_to_third_image.png" alt="third-image" width="200"/>
+</div>
 
 - Nextjs 14
 - Clerk
